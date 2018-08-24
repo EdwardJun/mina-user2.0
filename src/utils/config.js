@@ -9,8 +9,8 @@ export default {
     isIMLogOn: false, // 是否打开IM Log系统
     // host: 'http://spa.93wifi.com',
     // host: 'http://192.168.1.105:9880',
-    // host: 'https://mp.xiaomodo.com',
-    host: 'https://test.xiaomodo.com',
+    host: 'https://mp.xiaomodo.com',
+    // host: 'https://test.xiaomodo.com',
     baseUrl: '/spa-manager/api',
     appType: 'wx_app',
     usertype: "user",

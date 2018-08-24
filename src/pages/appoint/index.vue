@@ -327,12 +327,12 @@
                 }
             }
             &>div:nth-of-type(2) {
+                line-height: 1;
                 display: flex;
-                padding: 18px 24px;
+                padding: 20px 24px;
                 width: 100%;
                 .locate {
                     position: relative;
-                    top: 7px;
                     width: 24px;
                     height: 24px;
                     line-height: 24px;
@@ -347,7 +347,6 @@
                 }
                 &>span:nth-of-type(2) {
                     position: relative;
-                    top: 5px;
                     flex: 1;
                     text-align: right;
                     margin-right: 48px;

@@ -10,6 +10,8 @@ var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
+var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+var portfinder = require('portfinder')
 var webpackConfig = require('./webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
@@ -80,17 +82,42 @@ var readyPromise = new Promise(resolve => {
 //   _resolve()
 // })
 
-var server = app.listen(port, 'localhost')
+/* var server = app.listen(port, 'localhost')
 
 // for 小程序的文件保存机制
 require('webpack-dev-middleware-hard-disk')(compiler, {
   publicPath: webpackConfig.output.publicPath,
   quiet: true
-})
+}) */
 
-module.exports = {
+/* module.exports = {
   ready: readyPromise,
   close: () => {
     server.close()
   }
-}
+} */
+
+module.exports = new Promise((resolve, reject) => {
+  portfinder.basePort = port
+  portfinder.getPortPromise().then(newPort => {
+    if (port !== newPort) {
+      console.log(`${port}端口被占用，开启新端口${newPort}`)
+    }
+    var server = app.listen(newPort, 'localhost')
+    // for 小程序的文件保存机制
+    require('webpack-dev-middleware-hard-disk')(compiler, {
+      publicPath: webpackConfig.output.publicPath,
+      quiet: true
+    })
+    resolve({
+      ready: readyPromise,
+      close: () => {
+        server.close()
+      }
+    })
+  }).catch(error => {
+    console.log('没有找到空闲端口，请打开任务管理器杀死进程端口再试', error)
+  })
+})
+
+

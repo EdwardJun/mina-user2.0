@@ -19,7 +19,7 @@
         <div class="project-price-mes" v-if="itemDetailData">
             <p class="text-ellipsis">{{itemDetailData.name}}</p>
             <div>
-                <span>{{itemPrice.price / 100}}<span> / {{itemPrice.duration || ''}}{{itemPrice.unitName}}</span></span>
+                <span> {{itemPrice.price / 100}}<span> / {{itemPrice.duration || ''}}{{itemPrice.unitName}}</span></span>
                 <span>已售{{itemDetailData.count}}件</span>
             </div>
         </div>
@@ -103,8 +103,14 @@
                         data = data.respData
                         that.itemDetailData = data
                         // 修改传递过来的图片样式修改
-                        // let imgUrl = that.itemDetailData.description.toString().replace(/\<img/g, '<img style="width:100%;height:160px"')
-                        // that.itemDetailData.description = imgUrl
+                        let desc = that.itemDetailData.description
+                        let isSrcRegex = /src=/
+                        let srcRegex = /src=[\"\'].{1,}[\"\']/
+                        if (desc && isSrcRegex.test(desc) && srcRegex.exec(desc)) {
+                            let imgUrl = that.itemDetailData.description.toString().replace(/\<img/g, '<img style="width:100%;height:160px;margin-top:10px;"')
+                            that.itemDetailData.description = imgUrl
+                        }
+
                         that.slideBanner.imgUrls = that.itemDetailData.imageUrlList || ['/static/img/item_detail_default.png']
                         that.slideBanner.isShowDoc = that.itemDetailData.imageUrlList? true: false
                         that.itemPrice = that.itemDetailData.priceList[0].itemList[0]
@@ -178,12 +184,6 @@
                 color: #333333;
                 letter-spacing: 0.36px;
                 font-weight: bold;
-                /* &>span {
-                    font-size: 28px;
-                    color: #4A4A4A;
-                    letter-spacing: 0.26px;
-                    font-weight: normal;
-                } */
             }
             &>div {
                 display: flex;
@@ -224,7 +224,6 @@
         }
         .project-adress {
             width: 100%;
-            // height: 162px;
             height: auto;
             padding: 32px;
             @include boxSizing;
@@ -235,11 +234,11 @@
             }
             &>p:nth-of-type(2) {
                 display: flex;
-                // align-items: center;
                 margin-top: 10px;
+                line-height: 1;
                 &>img {
                     position: relative;
-                    top: 10px;
+                    top: 2px;
                     width: 24px;
                     height: 24px;
                     margin-right: 20px;
@@ -293,6 +292,7 @@
                 &::before {
                     background: url("~asset/img/01.png");
                     position: relative;
+                    top: -3px;
                     display: inline-block;
                     content: '';
                     width: 6px;
@@ -309,7 +309,7 @@
                 font-size: 28px;
                 color: #4A4A4A;
                 letter-spacing: 0.86px;
-                text-align: justify;
+                // text-align: justify;
                 img {
                     width: 100%;
                     height: 360px;
