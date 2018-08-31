@@ -6,7 +6,10 @@ module.exports = {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+    // assetsSubDirectory: 'static',
+    /* 新增----start----- */
+    assetsSubDirectory: '',
+    /* 新增----end----- */
     assetsPublicPath: '/',
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
@@ -26,7 +29,10 @@ module.exports = {
     port: 8080,
     // 在小程序开发者工具中不需要自动打开浏览器
     autoOpenBrowser: false,
-    assetsSubDirectory: 'static',
+    // assetsSubDirectory: 'static',
+    /* 新增----start----- */
+    assetsSubDirectory: '',
+    /* 新增----end----- */
     assetsPublicPath: '/',
     proxyTable: {},
     // CSS Sourcemaps off by default because relative paths are "buggy"
