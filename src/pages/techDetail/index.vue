@@ -18,7 +18,7 @@
         <div class="tech-info">
             <div>{{ techDetailData.serialNo }} <span>{{ techDetailData.name }}</span></div>
             <div class="tech-favorite">
-                <span>喜欢: <span> {{ techDetailData.favorite }}</span></span>
+                <span>喜欢 <span> {{ techDetailData.favorite }}</span></span>
                 <span>评分: <span> {{ techDetailData.star / 20 }}</span></span>
             </div>
             <div class="tech-desc" v-if="techDetailData.description">
