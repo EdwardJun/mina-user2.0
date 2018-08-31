@@ -5,17 +5,12 @@ var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
 var MpvuePlugin = require('webpack-mpvue-asset-plugin')
 var glob = require('glob')
-/* 新增----start----- */
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-var configFilesArray = []
-/* 新增-----end---- */
-var relative = require('relative');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
-/* function getEntry (rootSrc, pattern) {
+function getEntry (rootSrc, pattern) {
   var files = glob.sync(path.resolve(rootSrc, pattern))
   return files.reduce((res, file) => {
     var info = path.parse(file)
@@ -23,35 +18,9 @@ function resolve (dir) {
     res[key] = path.resolve(file)
     return res
   }, {})
-} */
-/* 新增----start----- */
-function getEntry(rootSrc) {
-  var map = {};
-  //fileArray 自定义打包入口分包
-  var fileArray = ['pages', 'subPackage', 'groups', 'subSeckill', 'bargain', 'subRefund', 'subCoupon'];
-  fileArray.map(name => {
-      glob.sync(rootSrc + `/${name}/**/main.js`).forEach(file => {
-          var key = relative(rootSrc, file).replace('.js', '');
-          map[key] = file;
-      });
-      glob.sync(rootSrc + `/${name}/**/main.json`).forEach(file => {
-          configFilesArray.push({
-              from: file,
-              to: relative(rootSrc, file)
-          });
-      });
-  });
-  return map;
 }
-/* 新增-----end---- */
 
 const appEntry = { app: resolve('./src/main.js') }
-/* 新增----start----- */
-configFilesArray.push({
-  from: resolve('./src/main.json'),
-  to: 'app.json'
-})
-/* 新增-----end---- */
 const pagesEntry = getEntry(resolve('./src'), 'pages/**/main.js')
 const entry = Object.assign({}, appEntry, pagesEntry)
 
@@ -124,9 +93,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new MpvuePlugin(),
-    /* 新增----start----- */
-    new CopyWebpackPlugin(configFilesArray)
-    /* 新增-----end---- */
+    new MpvuePlugin()
   ]
 }

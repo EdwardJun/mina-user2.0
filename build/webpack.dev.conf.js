@@ -31,12 +31,8 @@ module.exports = merge(baseWebpackConfig, {
     path: config.build.assetsRoot,
     // filename: utils.assetsPath('js/[name].[chunkhash].js'),
     // chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
-    /* filename: utils.assetsPath('js/[name].js'),
-    chunkFilename: utils.assetsPath('js/[id].js') */
-    /* 新增------start------- */
-    filename: utils.assetsPath('[name].js'),
-    chunkFilename: utils.assetsPath('[id].js')
-    /* 新增------end--------- */
+    filename: utils.assetsPath('js/[name].js'),
+    chunkFilename: utils.assetsPath('js/[id].js')
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -47,10 +43,7 @@ module.exports = merge(baseWebpackConfig, {
     // extract css into its own file
     new ExtractTextPlugin({
       // filename: utils.assetsPath('css/[name].[contenthash].css')
-      /* filename: utils.assetsPath('css/[name].wxss') */
-      /* 新增------start------- */
-      filename: utils.assetsPath('[name].wxss')
-      /* 新增------end--------- */
+      filename: utils.assetsPath('css/[name].wxss')
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -60,10 +53,7 @@ module.exports = merge(baseWebpackConfig, {
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      // name: 'vendor',
-      /* 新增------start------- */
-      name: 'common/vendor',
-      /* 新增------end--------- */
+      name: 'vendor',
       minChunks: function (module, count) {
         // any required modules inside node_modules are extracted to vendor
         return (
@@ -74,12 +64,8 @@ module.exports = merge(baseWebpackConfig, {
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
-      /* name: 'manifest',
-      chunks: ['vendor'] */
-      /* 新增------start------- */
-      name: 'common/manifest',
-      chunks: ['common/vendor']
-      /* 新增------end--------- */
+      name: 'manifest',
+      chunks: ['vendor']
     }),
     // copy custom static assets
     new CopyWebpackPlugin([
