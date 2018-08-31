@@ -22,7 +22,7 @@
                 <span>评分: <span> {{ techDetailData.star / 20 }}</span></span>
             </div>
             <div class="tech-desc" v-if="techDetailData.description">
-                简介 <span>{{ techDetailData.description }}</span>
+                简介: <span>{{ techDetailData.description }}</span>
             </div>
         </div>
         
