@@ -1,5 +1,7 @@
 # mina-user
 
+> 使用 mpvue 搭建的小程序框架
+
 > Terminal for ModoUser on Mina.
 
 ## Build Setup
